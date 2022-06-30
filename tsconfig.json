@@ -7,6 +7,7 @@
         ],
     "target": "ES6",
     "module": "CommonJS",
+    "outDir": "./lib",
     "alwaysStrict": true,
     "esModuleInterop": true,
     "moduleResolution": "node", // account for node
@@ -20,5 +21,13 @@
     // "strictNullChecks": true, // enable strict null checks as a best practice
     // "strictPropertyInitialization": true // ensure non-undefined class properties are initialized in the constructor
     "skipLibCheck": true
-    }
+    },
+    "include": [
+        "src/**/*.ts",
+        "src/index.ts"
+    ],
+    "exclude": [
+        ".vscode",
+        "node_modules",
+    ]
 }

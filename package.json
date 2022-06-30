@@ -2,12 +2,12 @@
     "name": "poc-service-tests",
     "version": "1.0.0",
     "description": "Spit service tests from MAF",
-    "main": "index.js",
+    "main": "lib/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "wdio": "wdio run test/wdio.conf.ts",
-        "build": "yarn run buildRaw && yarn run copyFiles",
-        "buildRaw": "rn -rf ./lib && tsc"
+        "build": "yarn run buildRaw",
+        "buildRaw": "rm -rf ./lib && tsc"
 
     },
     "repository": {
