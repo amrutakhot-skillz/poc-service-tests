@@ -1,0 +1,10 @@
+{
+    "mochaExplorer.files": "**/*.spec.ts",
+    "mochaExplorer.ignore": "node_modules/**",
+    "mochaExplorer.require": "ts-node/register",
+    "mochaExplorer.env": { "TS_NODE_FILES": "true" },
+    "cSpell.words": [
+        "webdriverio", 
+        "cooldown"
+    ]
+}

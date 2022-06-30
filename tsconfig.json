@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "types": [
+            "node",
+            "webdriverio/async",
+            "@wdio/mocha-framework"
+        ],
+    "target": "ES6",
+    "module": "CommonJS",
+    "alwaysStrict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node", // account for node
+    "resolveJsonModule": true,
+    "experimentalDecorators": true, // support experimental decorators,
+    "noImplicitAny": true,
+    "noImplicitReturns": true, // report error when not all code paths in function return a value.
+    "noImplicitThis": true, // raise error on 'this' expressions with an implied any type.
+    "strictBindCallApply": true, // enable stricter checking of the `bind`, `call`, and `apply` methods on functions.
+    "strictFunctionTypes": true, // disable bi-variant parameter checking for function types
+    // "strictNullChecks": true, // enable strict null checks as a best practice
+    // "strictPropertyInitialization": true // ensure non-undefined class properties are initialized in the constructor
+    "skipLibCheck": true
+    }
+}
