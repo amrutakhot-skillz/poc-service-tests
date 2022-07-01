@@ -6,6 +6,6 @@ import { UserCurrencyService } from './services/sdk/userCurrencyService';
 import { UserManagementService, User } from './services/sdk/userManagementService';
 import { PortalsAuthenticationService } from './services/portals/portalsAuthenticationService';
 import { PlayerDetailsService, BalanceRequest, UpdateBalanceUserInfoResponse, UpdateTicketzBalanceRequest, UpdateTicketzUserInfoResponse, GetTicketzBalanceResponse, GetTicketzBalanceRequest, GetUserSegmentMembershipRequest } from './services/portals/playerDetailsService';
-import FingerprintService from './services/internal/fingerprintService';
-export { AuthenticationService, LoginBonusService, UserCurrencyService, UserManagementService, PortalsAuthenticationService, SkillzPortalsAPI, SkillzSDKAPI, User, PlayerDetailsService, BalanceRequest, UpdateBalanceUserInfoResponse, UpdateTicketzBalanceRequest, UpdateTicketzUserInfoResponse, GetTicketzBalanceResponse, GetTicketzBalanceRequest, Credentials, GetUserSegmentMembershipRequest, FingerprintService };
+import fingerprintService from './services/internal/fingerprintService';
+export { AuthenticationService, LoginBonusService, UserCurrencyService, UserManagementService, PortalsAuthenticationService, SkillzPortalsAPI, SkillzSDKAPI, User, PlayerDetailsService, BalanceRequest, UpdateBalanceUserInfoResponse, UpdateTicketzBalanceRequest, UpdateTicketzUserInfoResponse, GetTicketzBalanceResponse, GetTicketzBalanceRequest, Credentials, GetUserSegmentMembershipRequest, fingerprintService };
 export type { Configuration, PortalsConfiguration };
