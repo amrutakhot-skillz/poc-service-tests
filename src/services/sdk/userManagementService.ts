@@ -84,6 +84,13 @@ export interface SaveAccountOptions {
   emailOptIn?: boolean;
 }
 
+type userCountry = 'US' | 'Canada';
+
+const userGpsLocation = {
+  US: '45.533125,-122.684161,',
+  CANADA: '49.2827,-123.1207,',
+};
+
 export class UserManagementService extends SkillzSDKAPI {
   /**
    * Create a new UserManagementService instance, defines protected variables
@@ -104,12 +111,20 @@ export class UserManagementService extends SkillzSDKAPI {
    * Create (async) a new user on the Skillz SDK and automatically defaults currency to USD.
    *
    * @param currencyISOCode (Optional) Automatically set currency to USD unless parameter is overridden. Pass null to skip setting the currency.
+   * @param country (Optional) Sets user gps location to US unless parameter is overridden.
    */
   async createNewUser(
-    currencyISOCode: CurrencyCode | null = 'USD'
+    currencyISOCode: CurrencyCode | null = 'USD',
+    country: userCountry | null = 'US'
   ): Promise<User> {
     // TODO: Move this to logStep common package https://skillzinc.atlassian.net/browse/PS-33127
     logger.logStep('Creating a new user.');
+
+    if (country == 'Canada') {
+      this.headerConfig.headers['X-Skillz-Location'] =
+        userGpsLocation.CANADA + new Date().toISOString();
+    }
+
     try {
       const response = await axios.post(
         this.baseURL + '/v1/users',
@@ -133,6 +148,11 @@ export class UserManagementService extends SkillzSDKAPI {
           currencyISOCode
         );
       }
+
+      if (country) {
+        this.setLocation(response.data);
+      }
+
       return response.data;
     } catch (e) {
       logger.logInfo(`Status: ${e?.response?.status}`);
@@ -327,6 +347,41 @@ export class UserManagementService extends SkillzSDKAPI {
       logger.logError(e);
       throw new Error(
         "An error occurred while trying to get the user's segment membership."
+      );
+    }
+  }
+
+  /**
+   * Update player's last known location.
+   *
+   * @param user User to update.
+   */
+  async setLocation(user: User): Promise<boolean> {
+    logger.logInfo(`Using the API to claim a Login Bonus with an empty POST`);
+
+    const authToken = await this.authTokenService.fetchAuthToken({
+      username: user.username,
+      password: user.password,
+    });
+
+    this.headerConfig.headers[
+      'Authorization'
+    ] = `Bearer ${authToken.access_token}`;
+
+    try {
+      const response = await axios.post(
+        'http://location-service.internal.staging.cloud.skillz.com/user-location',
+        {
+          user_id: user.id,
+        },
+        {
+          headers: this.headerConfig.headers,
+        }
+      );
+      return response.status === 200;
+    } catch (e) {
+      throw new Error(
+        e + 'An error occurred while trying to set user location'
       );
     }
   }

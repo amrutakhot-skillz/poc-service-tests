@@ -71,6 +71,7 @@ export interface SaveAccountOptions {
     emailAddress?: string;
     emailOptIn?: boolean;
 }
+declare type userCountry = 'US' | 'Canada';
 export declare class UserManagementService extends SkillzSDKAPI {
     protected authTokenService: AuthenticationService;
     protected userCurrencyService: UserCurrencyService;
@@ -86,8 +87,9 @@ export declare class UserManagementService extends SkillzSDKAPI {
      * Create (async) a new user on the Skillz SDK and automatically defaults currency to USD.
      *
      * @param currencyISOCode (Optional) Automatically set currency to USD unless parameter is overridden. Pass null to skip setting the currency.
+     * @param country (Optional) Sets user gps location to US unless parameter is overridden.
      */
-    createNewUser(currencyISOCode?: CurrencyCode | null): Promise<User>;
+    createNewUser(currencyISOCode?: CurrencyCode | null, country?: userCountry | null): Promise<User>;
     /**
      * Saves a birthdate for the given user - required before saving an account
      *
@@ -123,4 +125,11 @@ export declare class UserManagementService extends SkillzSDKAPI {
      * @throws An error if the user's segment membership cannot be retrieved
      */
     getUserSegmentMembership(request: GetUserSegmentMembershipRequest): Promise<number[]>;
+    /**
+     * Update player's last known location.
+     *
+     * @param user User to update.
+     */
+    setLocation(user: User): Promise<boolean>;
 }
+export {};
